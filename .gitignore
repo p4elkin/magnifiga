@@ -1,0 +1,58 @@
+.cloud
+.env
+/store-data
+HELP.md
+target/
+dist/
+overlays/
+repositories/
+rebel.xml
+rebel-remote.xml
+!**/src/main/magnolia/modules
+**/src/main/magnolia/*
+
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+k8s
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+.DS_Store
+.allure
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Terraform ###
+**/.terraform
+**/*.tfstate
+**/.terraform.lock.hcl
+
+identifier.sqlite 
+*.pem
+.mvn
+*.db
+kumpula-games-backend/src/main/java/fi/kumpula/domain

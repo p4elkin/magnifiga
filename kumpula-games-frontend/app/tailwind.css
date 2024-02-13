@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+    .status-control-container > :nth-child(2) {
+        @apply top-6
+    }
+
+    .status-control-container > :nth-child(3) {
+        @apply top-12
+    }
+}
