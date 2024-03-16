@@ -10,9 +10,6 @@ import {
 } from "@remix-run/react";
 import {authenticator} from "~/services/auth.server";
 
-export const GamesAPI = `http://localhost:8080/games`;
-export const PlayersAPI = `http://localhost:8080/players`;
-
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
 ];

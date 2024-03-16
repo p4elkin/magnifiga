@@ -2,7 +2,7 @@ import {Form, useLoaderData} from "@remix-run/react";
 import type {Game} from "~/game";
 import type {LoaderFunctionArgs, MetaFunction} from "@remix-run/node";
 import {getUnixTime} from "date-fns";
-import {GamesAPI, getUser} from "~/root";
+import {getUser} from "~/root";
 import {GameCard} from "~/routes/gameCard";
 import {ActionFunctionArgs} from "@remix-run/node";
 
@@ -12,7 +12,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     const fetchGames = async () => {
         const now = new Date()
         const fetchGameAmount = 8
-        return fetch(`${GamesAPI}?since=${getUnixTime(now)}&amount=${fetchGameAmount}`);
+        return fetch(`${process.env.BACKEND_URL}?since=${getUnixTime(now)}&amount=${fetchGameAmount}`);
     }
 
     const gamesResponse = await fetchGames();
@@ -37,7 +37,7 @@ export async function action({request}: ActionFunctionArgs) {
 
     let {_action, gameId} = Object.fromEntries(args)
 
-    await fetch(`${GamesAPI}/${gameId}`, {
+    await fetch(`${process.env.BACKEND_URL}/${gameId}`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'

@@ -1,13 +1,12 @@
 import type {ActionFunctionArgs} from "@remix-run/node";
-import {PlayersAPI} from "~/root";
+import type {User} from "~/services/auth.server";
 import {redirect} from "@remix-run/node";
 import {commitSession, getSession} from "~/services/session.server";
-import {User} from "~/services/auth.server";
 
 export async function action({ request }: ActionFunctionArgs) {
     const data = await request.formData()
 
-    const result = await fetch(`${PlayersAPI}/update`, {
+    const result = await fetch(`${process.env.PLAYERS_API_URL}/update`, {
         method: "PUT",
         headers: {
             'Content-Type': 'application/json'
