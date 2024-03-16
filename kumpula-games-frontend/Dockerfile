@@ -1,9 +1,6 @@
 # base node image
 FROM node:21 as base
 
-# Install openssl for Prisma
-RUN apt-get update && apt-get install -y openssl
-
 # Install all node_modules, including dev dependencies
 FROM base as deps
 
@@ -23,7 +20,7 @@ WORKDIR /app
 
 COPY --from=deps /app/node_modules /app/node_modules
 ADD package.json package-lock.json ./
-RUN npm prune --production
+#RUN npm prune --production
 
 # Build the app
 FROM base as build
@@ -49,4 +46,4 @@ COPY --from=build /app/build /app/build
 COPY --from=build /app/public /app/public
 ADD . .
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]
