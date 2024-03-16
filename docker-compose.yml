@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  api:
+    build:
+      context: ./kumpula-games-backend
+      dockerfile: ./src/main/docker/Dockerfile.jvm
+    volumes:
+      - ./db:/deployments/db
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ./kumpula-games-frontend
+      dockerfile: ./Dockerfile
+    environment:
+      -BACKEND_URL: api/games
+      -PLAYERS_API_URL: api/players
+    ports:
+      - "3000:3000"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+#      - /etc/letsencrypt:/etc/letsencrypt:ro #
+    depends_on:
+      - api
+      - frontend
