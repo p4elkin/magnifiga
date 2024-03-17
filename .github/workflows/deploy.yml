@@ -13,6 +13,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21' # Set this to the version of Java used by your project
+        distribution: 'temurin' # This is an example; use the distribution that fits your project
+
+    - name: Build with Maven
+      run: |
+        cd kumpula-games-backend
+        mvn -B package
+
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.3
       with:
