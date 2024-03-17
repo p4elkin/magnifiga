@@ -16,7 +16,13 @@ jobs:
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ secrets.SSH_KEY }}
+        ssh-private-key: ${{ secrets.RSA_KEY }}
+
+    - name: Copy project files to Digital Ocean droplet
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.DO_HOST }} "mkdir -p /root/kumpula-app"
+        scp -o StrictHostKeyChecking=no -r ./docker-compose.yml ${{ secrets.SSH_USERNAME }}@${{ secrets.DO_HOST }}:/root/kumpula-app/docker-compose.yml
+        scp -o StrictHostKeyChecking=no -r ./nginx.conf ${{ secrets.SSH_USERNAME }}@${{ secrets.DO_HOST }}:/root/kumpula-app/nginx.conf
 
     - name: Build and Push Docker images
       run: |
@@ -26,8 +32,8 @@ jobs:
 
     - name: Deploy to Digital Ocean
       run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} << 'EOF'
-          cd path/to/your/project
+        ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.DO_HOST }} << 'EOF'
+          cd /kumpula-app
           docker-compose pull
           docker-compose up -d
           # Any other commands needed for deployment like migrations

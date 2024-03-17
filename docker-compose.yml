@@ -4,6 +4,7 @@ services:
     build:
       context: ./kumpula-games-backend
       dockerfile: ./src/main/docker/Dockerfile.jvm
+    image: p4elkin/kumpula-games-api
     volumes:
       - ./db:/deployments/db
     ports:
@@ -13,12 +14,13 @@ services:
     build:
       context: ./kumpula-games-frontend
       dockerfile: ./Dockerfile
+    image: p4elkin/kumpula-games-frontend
     environment:
-      -BACKEND_URL: api/games
-      -PLAYERS_API_URL: api/players
+      "BACKEND_URL": http://api:8080/games
+      "PLAYERS_API_URL": http://api:8080/players
     ports:
       - "3000:3000"
-
+      - "3001:3001"
   nginx:
     image: nginx:latest
     ports:

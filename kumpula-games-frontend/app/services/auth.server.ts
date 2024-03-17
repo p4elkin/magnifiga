@@ -11,7 +11,7 @@ export let authenticator = new Authenticator<User>(sessionStorage);
 
 async function loginUser(email: String, password: string, isRegisterAction: boolean): Promise<User> {
     let action = isRegisterAction ? "register" : "login"
-    let authResponse = await fetch(`http:localhost:8080/players/${action}`, {
+    let authResponse = await fetch(`${process.env.PLAYERS_API_URL}/${action}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
