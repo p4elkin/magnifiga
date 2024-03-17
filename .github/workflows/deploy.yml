@@ -19,6 +19,15 @@ jobs:
         java-version: '21' # Set this to the version of Java used by your project
         distribution: 'temurin' # This is an example; use the distribution that fits your project
 
+    - name: Install SQLite
+      run: sudo apt-get install sqlite3
+
+    - name: Create SQLite Database
+      run: |
+        cd kumpula-games-backend
+        mkdir db
+        sqlite3 db/kumpula.db < ./src/main/resources/db/migration/V1__initialize_schema.sql
+
     - name: Build with Maven
       run: |
         cd kumpula-games-backend
