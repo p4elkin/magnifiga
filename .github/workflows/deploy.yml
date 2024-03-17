@@ -28,6 +28,15 @@ jobs:
         mkdir db
         sqlite3 db/kumpula.db < ./src/main/resources/db/migration/V1__initialize_schema.sql
 
+    - name: Cache Maven packages
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-m2
+
     - name: Build with Maven
       run: |
         cd kumpula-games-backend
@@ -53,7 +62,7 @@ jobs:
     - name: Deploy to Digital Ocean
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.DO_HOST }} << 'EOF'
-          cd /kumpula-app
+          cd /root/kumpula-app
           docker-compose pull
           docker-compose up -d
           # Any other commands needed for deployment like migrations
