@@ -22,7 +22,7 @@ jobs:
     - name: Install SQLite
       run: sudo apt-get install sqlite3
 
-    - name: Create SQLite Database
+    - name: Create Sample SQLite Database for jooq code generation
       run: |
         cd kumpula-games-backend
         mkdir db
